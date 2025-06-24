@@ -19,6 +19,13 @@ interface FrameworkCardProps {
 }
 
 const FrameworkCard: React.FC<FrameworkCardProps> = ({ framework, onGetBoilerplate, index }) => {
+  const handleGetBoilerplateClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Get Boilerplate button clicked for:', framework.name);
+    onGetBoilerplate(framework);
+  };
+
   return (
     <div 
       className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-fade-in overflow-hidden"
@@ -54,8 +61,9 @@ const FrameworkCard: React.FC<FrameworkCardProps> = ({ framework, onGetBoilerpla
         {/* Actions */}
         <div className="flex gap-3">
           <button
-            onClick={() => onGetBoilerplate(framework)}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r ${framework.color} text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200`}
+            onClick={handleGetBoilerplateClick}
+            type="button"
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r ${framework.color} text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 cursor-pointer`}
           >
             <Download className="w-4 h-4" />
             Get Boilerplate

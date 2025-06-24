@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import FrameworkCard from '../components/FrameworkCard';
@@ -75,6 +76,8 @@ const Index = () => {
   const [selectedFramework, setSelectedFramework] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  console.log('Index component state:', { selectedFramework, isModalOpen });
+
   const filteredFrameworks = frameworks.filter(framework =>
     framework.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     framework.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -82,15 +85,26 @@ const Index = () => {
   );
 
   const handleGetBoilerplate = (framework: any) => {
-    console.log('handleGetBoilerplate called with:', framework.name);
+    console.log('=== handleGetBoilerplate START ===');
+    console.log('Framework received:', framework);
+    console.log('Setting selectedFramework to:', framework.name);
+    console.log('Setting isModalOpen to: true');
+    
     setSelectedFramework(framework);
     setIsModalOpen(true);
+    
+    console.log('=== handleGetBoilerplate END ===');
   };
 
   const handleCloseModal = () => {
-    console.log('Modal closed');
+    console.log('=== handleCloseModal START ===');
+    console.log('Setting isModalOpen to: false');
+    console.log('Setting selectedFramework to: null');
+    
     setIsModalOpen(false);
     setSelectedFramework(null);
+    
+    console.log('=== handleCloseModal END ===');
   };
 
   return (

@@ -19,6 +19,9 @@ interface UserModalProps {
 }
 
 const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, framework }) => {
+  console.log('=== UserModal render ===');
+  console.log('Props received:', { isOpen, framework: framework?.name || 'null', onClose: typeof onClose });
+
   const [step, setStep] = useState<'form' | 'download'>('form');
   const [formData, setFormData] = useState({
     name: '',
@@ -94,7 +97,14 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, framework }) => 
     onClose();
   };
 
-  if (!isOpen || !framework) return null;
+  console.log('Modal render condition check:', { isOpen, hasFramework: !!framework });
+  
+  if (!isOpen || !framework) {
+    console.log('Modal not rendering because:', { isOpen, framework: !!framework });
+    return null;
+  }
+
+  console.log('Modal is rendering for framework:', framework.name);
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">

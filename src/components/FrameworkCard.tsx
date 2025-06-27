@@ -19,11 +19,24 @@ interface FrameworkCardProps {
 }
 
 const FrameworkCard: React.FC<FrameworkCardProps> = ({ framework, onGetBoilerplate, index }) => {
-  const handleGetBoilerplateClick = (e: React.MouseEvent) => {
+  console.log('FrameworkCard rendering for:', framework.name);
+  console.log('onGetBoilerplate function:', typeof onGetBoilerplate);
+
+  const handleGetBoilerplateClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('=== BUTTON CLICK DETECTED ===');
+    console.log('Event:', e);
+    console.log('Framework:', framework.name);
+    console.log('About to call onGetBoilerplate with:', framework);
+    
     e.preventDefault();
     e.stopPropagation();
-    console.log('Get Boilerplate button clicked for:', framework.name);
-    onGetBoilerplate(framework);
+    
+    try {
+      onGetBoilerplate(framework);
+      console.log('=== onGetBoilerplate CALLED SUCCESSFULLY ===');
+    } catch (error) {
+      console.error('Error calling onGetBoilerplate:', error);
+    }
   };
 
   return (
@@ -63,7 +76,7 @@ const FrameworkCard: React.FC<FrameworkCardProps> = ({ framework, onGetBoilerpla
           <button
             onClick={handleGetBoilerplateClick}
             type="button"
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r ${framework.color} text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 cursor-pointer`}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r ${framework.color} text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 cursor-pointer relative z-10`}
           >
             <Download className="w-4 h-4" />
             Get Boilerplate
